@@ -48,6 +48,9 @@
 // The parent view handles clipping to its subviews.
 @interface ChildClippingView : UIView
 
+// Adds a blur filter to its layers.
+- (void)applyBackdropFilter;
+
 @end
 
 namespace flutter {
