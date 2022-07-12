@@ -57,7 +57,7 @@ void ResetAnchor(CALayer* layer) {
 }  // namespace flutter
 
 @implementation ChildClippingView {
-    bool _backdropFilterApplied;
+  bool _backdropFilterApplied;
 }
 
 // The ChildClippingView's frame is the bounding rect of the platform view. we only want touches to
@@ -73,29 +73,33 @@ void ResetAnchor(CALayer* layer) {
 }
 
 - (void)applyBackdropFilter {
-    if(_backdropFilterApplied) // TODO EMILY: This check is not needed, but it might improve space/time performance.
-      return;
-    
-    UIVisualEffect* blurEffect;
-    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    
-    UIVisualEffectView* visualEffectView;
-    visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    
-    UIView* view = [visualEffectView.subviews firstObject];
-    [visualEffectView release];
-    if(!view) // TODO EMILY: Do we also need to check that the view received from UIVEV is the expected  _UIVisualEffectSubview? The next check will catch discrepencies, but we could return earlier here.
-      return;
-    
-    NSObject* gaussianFilter = [view.layer.filters firstObject];
-    if(!gaussianFilter || ![[gaussianFilter valueForKey:@"name"] isEqual:@"gaussianBlur"])
-      return;
-    
-    [gaussianFilter setValue:@(5) forKey:@"inputRadius"]; // TODO EMILY: inputRadius value should come from user
-    NSArray* newFilters = @[gaussianFilter];
-    self.layer.filters = newFilters;
-    
-    _backdropFilterApplied = true;
+  if (_backdropFilterApplied)  // TODO EMILY: This check is not needed, but it might improve
+                               // space/time performance.
+    return;
+
+  UIVisualEffect* blurEffect;
+  blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+
+  UIVisualEffectView* visualEffectView;
+  visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+
+  UIView* view = [visualEffectView.subviews firstObject];
+  [visualEffectView release];
+  if (!view)  // TODO EMILY: Do we also need to check that the view received from UIVEV is the
+              // expected  _UIVisualEffectSubview? The next check will catch discrepencies, but we
+              // could return earlier here.
+    return;
+
+  NSObject* gaussianFilter = [view.layer.filters firstObject];
+  if (!gaussianFilter || ![[gaussianFilter valueForKey:@"name"] isEqual:@"gaussianBlur"])
+    return;
+
+  [gaussianFilter setValue:@(5)
+                    forKey:@"inputRadius"];  // TODO EMILY: inputRadius value should come from user
+  NSArray* newFilters = @[ gaussianFilter ];
+  self.layer.filters = newFilters;
+
+  _backdropFilterApplied = true;
 }
 
 @end

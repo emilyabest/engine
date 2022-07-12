@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import <UIKit/UIGestureRecognizerSubclass.h>
 #import <CoreImage/CoreImage.h>
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 #include <list>
 #include <map>
@@ -385,7 +385,7 @@ void FlutterPlatformViewsController::ApplyMutators(const MutatorsStack& mutators
   if (flutter_view_ == nullptr) {
     return;
   }
-    
+
   // Handle size of the view
   FML_DCHECK(CATransform3DEqualToTransform(embedded_view.layer.transform, CATransform3DIdentity));
   ResetAnchor(embedded_view.layer);
@@ -411,8 +411,8 @@ void FlutterPlatformViewsController::ApplyMutators(const MutatorsStack& mutators
       case transform: {
         CATransform3D transform = GetCATransform3DFromSkMatrix((*iter)->GetMatrix());
         finalTransform = CATransform3DConcat(transform, finalTransform);
-          
-        [clipView applyBackdropFilter]; // TODO EMILY: move to case backdrop_filter
+
+        [clipView applyBackdropFilter];  // TODO EMILY: move to case backdrop_filter
         break;
       }
       case clip_rect:
@@ -426,7 +426,7 @@ void FlutterPlatformViewsController::ApplyMutators(const MutatorsStack& mutators
         break;
       case opacity:
         embedded_view.alpha = (*iter)->GetAlphaFloat() * embedded_view.alpha;
-        break;            
+        break;
     }
     ++iter;
   }
